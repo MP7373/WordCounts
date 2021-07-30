@@ -30,10 +30,10 @@ public class WordCounts {
         // I implemented a quick select because it has linear time complexity
         // to solve "find the top x elements of a list" by some comparison criteria.
         // Sorting the entire list is n log n, which is slower.
-        // If you're not familiar, quick select basically just quick sort where you only
+        // If you're not familiar, quick select is basically just quick sort where you only
         // tunnel down one side and you can ignore the other side because you only care
-        // about finding the top x elements not making sure the entire list is sorted.
-        // So if you only care about the top 25 elements and you know that more than
+        // about finding the top x elements, not making sure the entire list is sorted.
+        // So if you only care about the top 25 elements, and you know that more than
         // 25 elements are greater than your chosen pivot, you can ignore everything
         // smaller than the chosen pivot, whereas in quick sort you would still need
         // to make sure the smaller elements are sorted and always need to keep
@@ -44,7 +44,7 @@ public class WordCounts {
         // ended up after the quick select.
         // This is really a micro optimization and even testing with a site
         // with large amounts of text (https://www.longestjokeintheworld.com/)
-        // it was only ~1-4 ish milliseconds faster than simply sorting
+        // it was only ~6-7 ish milliseconds faster than simply sorting
         // the list with the default List.sort() method (I did time the sorting
         // in isolation to confirm this, as the variation on response time is
         // more than is gained by this).
@@ -113,8 +113,8 @@ public class WordCounts {
             if (everythingToLeftIsLargerIndex == numberOfElementsToPartition) {
                 return;
             } else if (everythingToLeftIsLargerIndex > numberOfElementsToPartition) {
+                everythingToRightSmallerIndex = everythingToLeftIsLargerIndex - 1;
                 everythingToLeftIsLargerIndex = passStartLeftBound;
-                everythingToRightSmallerIndex = passStartRightBound - 1;
             } else {
                 everythingToLeftIsLargerIndex++;
                 everythingToRightSmallerIndex = passStartRightBound;
